@@ -1,0 +1,23 @@
+.ingredients {
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+}
+
+.ingredients_container {
+  display: grid;
+  grid-template-columns: auto;
+  grid-row-gap: 40px;
+  max-height: 900px;
+  overflow: scroll;
+}
+
+@media screen and (max-height: 1280px) {
+  .types_conteiner {
+    max-height: 750px;
+  }
+}
+@media screen and (max-height: 1080px) {
+  .types_conteiner {
+    max-height: 600px;
+  }
+}
