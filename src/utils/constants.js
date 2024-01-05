@@ -13,4 +13,5 @@ export const pieceProps = PropTypes.shape({
   image: PropTypes.string,
   image_mobile: PropTypes.string,
   image_large: PropTypes.string,
+  _id: PropTypes.string
 });

@@ -1,0 +1,30 @@
+.head {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.image {
+  max-width: 480px;
+  height: 240px;
+}
+
+.nutrients {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  justify-content: center;
+
+  list-style: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+}
+
+.nutrient {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 112px;
+  height: 56px;
+}

@@ -4,15 +4,31 @@ import AppHeader from "../app-header/app-header";
 import Ingredients from "../ingredients/ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import {ingredientsPath} from "../../utils/constants";
+import Modal from "../modal/modal";
 
 const App = () => {
-  const [state, setState] = React.useState({isLoading: true, error: ""});
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [error, setError] = React.useState("err");
+
+  const [ingredients, setIngredients] = React.useState([]);
+  const [modalState, setModalState] = React.useState({open: false, node: (<></>)})
+
+  const onModalOpen = (node) => {
+    setModalState({
+      open: true,
+      node: node,
+    })
+  }
+
+  const onModalClose = () => {
+    setModalState({
+      open: false,
+      node: (<></>)
+    })
+  }
 
   useEffect(() => {
-    setState({
-      ...state,
-      isLoading: true
-    })
+    setIsLoading(true)
     fetch(ingredientsPath)
       .then((res) => {
         if (res.ok) {
@@ -22,42 +38,45 @@ const App = () => {
       })
       .then((res) => {
         if (!res.success) {
-          console.log("А где");
           return Promise.reject(res);
         }
-        setState({
-          data: res["data"],
-          isLoading: false,
-          error: ""
-        })
+        setIngredients(res["data"])
+        setIsLoading(false)
+        setError("")
       })
       .catch((err) => {
-        setState({
-          ...state,
-          isLoading: false,
-          error: err
-        })
+        console.log(err)
+        setIsLoading(false)
+        setError(err)
       })
   }, []);
-  const defaultData = state.isLoading || state.error ? [] : [
-    state.data[2],
-    state.data[2],
-    state.data[3],
-    state.data[3],
-    state.data[3],
-    state.data[3],
-    state.data[4],
+
+  const defaultData = isLoading || error ? [] : [
+    ingredients[2],
+    ingredients[2],
+    ingredients[3],
+    ingredients[3],
+    ingredients[3],
+    ingredients[3],
+    ingredients[4],
   ];
+
   return (
     <div className={styles.app}>
-      {state.isLoading && "Загрузка"}
-      {state.error && "Ошибка: " + state.error}
-      {!state.isLoading && !state.error && (
+      <AppHeader/>
+      {modalState.open && !isLoading &&
+        <Modal onClose={onModalClose}>
+          {modalState.node}
+        </Modal>
+      }
+      {isLoading && "Загрузка"}
+      {error && "Ошибка: " + error}
+      {!isLoading && !error && (
         <>
-          <AppHeader/>
           <main className={styles.app__main}>
-            <Ingredients data={state.data}/>
-            <BurgerConstructor bottom={state.data[0]} top={state.data[0]} main={defaultData}/>
+            <Ingredients data={ingredients} onModalOpen={onModalOpen}/>
+            <BurgerConstructor bottom={ingredients[0]} top={ingredients[0]} main={defaultData}
+                               onModalOpen={onModalOpen}/>
           </main>
         </>
       )}
