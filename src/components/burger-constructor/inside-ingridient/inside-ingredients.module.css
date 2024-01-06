@@ -1,0 +1,7 @@
+.piece {
+  max-height: 80px;
+  display: grid;
+  gap: 8px;
+  align-items: center;
+  grid-template-columns: 24px auto;
+}

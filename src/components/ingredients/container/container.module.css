@@ -1,0 +1,11 @@
+.cardContainer {
+  list-style: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+
+  display: grid;
+  grid-template-columns: 272px 272px;
+  grid-column-gap: 24px;
+  grid-row-gap: 32px;
+}

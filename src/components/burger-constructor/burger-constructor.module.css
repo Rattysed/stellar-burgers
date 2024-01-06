@@ -1,0 +1,39 @@
+.burger_constructor {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.main {
+  list-style: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  max-height: 800px;
+  overflow-y: scroll;
+}
+
+@media screen and (max-height: 1280px) {
+  .main {
+    max-height: 656px;
+  }
+}
+@media screen and (max-height: 1080px) {
+  .main {
+    max-height: 500px;
+  }
+}
+
+.piece {
+  max-height: 80px;
+}
+
+.done {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
