@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import {useState, useEffect} from "react";
+import {useMemo} from "react";
 
 import {ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -12,20 +12,17 @@ import OrderDetails from "../order-details/order-details";
 
 const BurgerConstructor = ({bottom, top, main, onModalOpen}) => {
   function onDoneClick(event) {
-    event.preventDefault()
+    event.preventDefault();
     const node = (<OrderDetails/>);
-    onModalOpen(node)
+    onModalOpen(node);
   }
 
-  const [price, setPrice] = useState(bottom.price + top.price);
-
-  useEffect(() => {
-    let newPrice = 0;
-    newPrice += bottom.price + top.price;
+  const price = useMemo(() => {
+    let suma = top.price + bottom.price;
     main.forEach((piece) => {
-      newPrice += piece.price;
+      suma += piece.price;
     })
-    setPrice(newPrice)
+    return suma;
   }, [bottom, top, main])
 
   return (

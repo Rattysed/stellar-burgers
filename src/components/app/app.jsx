@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './app.module.css';
 import AppHeader from "../app-header/app-header";
 import Ingredients from "../ingredients/ingredients";
@@ -7,11 +7,11 @@ import {ingredientsPath} from "../../utils/constants";
 import Modal from "../modal/modal";
 
 const App = () => {
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [error, setError] = React.useState("err");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("err");
 
-  const [ingredients, setIngredients] = React.useState([]);
-  const [modalState, setModalState] = React.useState({open: false, node: (<></>)})
+  const [ingredients, setIngredients] = useState([]);
+  const [modalState, setModalState] = useState({open: false, node: (<></>)})
 
   const onModalOpen = (node) => {
     setModalState({

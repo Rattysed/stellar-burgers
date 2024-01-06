@@ -15,7 +15,6 @@
   gap: 16px;
   max-height: 800px;
   overflow-y: scroll;
-
 }
 
 @media screen and (max-height: 1280px) {
