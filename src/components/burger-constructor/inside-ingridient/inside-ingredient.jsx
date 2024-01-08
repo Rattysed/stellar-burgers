@@ -1,7 +1,7 @@
 import styles from "./inside-ingredients.module.css"
 import {pieceProps} from "../../../utils/constants";
 import {DragIcon, ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
-import {DeleteIngredient, MoveIngredient} from '../../../services/actions/constructor-controls';
+import {deleteIngredient, moveIngredient} from '../../../services/actions/constructor-controls';
 
 import {useDrag, useDrop} from 'react-dnd';
 import {useRef} from 'react';
@@ -29,7 +29,7 @@ function InsideIngredient({piece, id}) {
     }),
 
     drop: (item) => {
-      dispatch(MoveIngredient(item.id, id))
+      dispatch(moveIngredient(item.id, id))
     },
   })
 
@@ -42,7 +42,7 @@ function InsideIngredient({piece, id}) {
         thumbnail={piece.image}
         price={piece.price}
         handleClose={() =>
-          dispatch(DeleteIngredient(piece, id))
+          dispatch(deleteIngredient(piece, id))
         }
       />
     </li>

@@ -1,6 +1,6 @@
 import {ADD_INGREDIENT, DELETE_INGREDIENT, MOVE_INGREDIENT} from "./actions";
 
-export function DeleteIngredient(piece, id) {
+export function deleteIngredient(piece, id) {
   return {
     type: DELETE_INGREDIENT,
     ingredient: piece,
@@ -8,7 +8,7 @@ export function DeleteIngredient(piece, id) {
   }
 }
 
-export function MoveIngredient(from, to) {
+export function moveIngredient(from, to) {
   return {
     type: MOVE_INGREDIENT,
     from: from,
@@ -16,7 +16,7 @@ export function MoveIngredient(from, to) {
   }
 }
 
-export function AddIngredient(piece) {
+export function addIngredient(piece) {
   return {
     type: ADD_INGREDIENT,
     ingredient: piece

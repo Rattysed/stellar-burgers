@@ -11,7 +11,7 @@ import OrderDetails from "../order-details/order-details";
 
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {AddIngredient, DeleteIngredient} from "../../services/actions/constructor-controls";
+import {addIngredient, deleteIngredient} from "../../services/actions/constructor-controls";
 import {openOrderModal, closeOrderModal, makeOrder} from "../../services/actions/order";
 import Modal from "../modal/modal";
 
@@ -42,16 +42,16 @@ const BurgerConstructor = () => {
       if (ingredient.type === "bun") {
         if (ingredientsConstructor.bun != null) {
           dispatch(
-            DeleteIngredient(
+            deleteIngredient(
               ingredientsConstructor.bun,
               ingredientsConstructor.bun._id
             )
           );
         }
-        dispatch(AddIngredient(ingredient));
+        dispatch(addIngredient(ingredient));
       } else {
         if (ingredientsConstructor.bun != null) {
-          dispatch(AddIngredient(ingredient));
+          dispatch(addIngredient(ingredient));
         }
       }
     },
