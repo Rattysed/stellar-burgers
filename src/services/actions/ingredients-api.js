@@ -23,7 +23,8 @@ function getIngredients() {
           })
         }
       })
-      .catch(function() {
+      .catch(function(err) {
+        console.log(err)
         dispatch({
           type: GET_INGREDIENTS_FAILURE
         })

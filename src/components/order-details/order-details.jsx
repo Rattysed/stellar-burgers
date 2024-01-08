@@ -6,10 +6,10 @@ const OrderDetails = ({id, status, name}) => {
   return (
     <>
       <p className="text text_type_digits-large pt-30">{id}</p>
-      <p className={styles.name + " text text_type_main-medium pt-8"}>
+      <p className={styles.order + " text text_type_main-medium pt-8"}>
         идентификатор заказа.
       </p>
-      <p className={styles.name + " text text_type_main-large pt-8"}>
+      <p className={styles.order + " text text_type_main-large pt-8"}>
         {name}
       </p>
       <img src={doneIcon} alt="done" className="pt-15 "/>

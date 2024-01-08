@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import {combineReducers} from "redux";
 import ingredientsList from "./ingredients-api";
 import ingredientDetails from "./ingredient-details";
 import ingredientsConstructor from "./constructor-controls";

@@ -1,8 +1,8 @@
 import styles from "./ingredient-details.module.css"
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 
 const IngredientDetails = () => {
-  const { ingredient } = useSelector((store) => store.ingredientDetails);
+  const {ingredient} = useSelector((store) => store.ingredientDetails);
   return (
     <>
       <div className={styles.head + " pt-10"}>

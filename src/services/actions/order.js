@@ -1,11 +1,12 @@
-import { orderPath } from "../../utils/constants";
-import { MAKE_ORDER_FAILURE, MAKE_ORDER_OK, ORDER_MODAL_CLOSE, ORDER_MODAL_OPEN } from "./actions";
+import {orderPath} from "../../utils/constants";
+import {MAKE_ORDER_FAILURE, MAKE_ORDER_OK, ORDER_MODAL_CLOSE, ORDER_MODAL_OPEN} from "./actions";
 
 export function closeOrderModal() {
-  return { type: ORDER_MODAL_CLOSE };
+  return {type: ORDER_MODAL_CLOSE};
 }
+
 export function openOrderModal() {
-  return { type: ORDER_MODAL_OPEN };
+  return {type: ORDER_MODAL_OPEN};
 }
 
 export function makeOrder(data) {
@@ -32,11 +33,12 @@ export function makeOrder(data) {
           });
           dispatch(openOrderModal());
         } else {
-          dispatch({ type: MAKE_ORDER_FAILURE });
+          dispatch({type: MAKE_ORDER_FAILURE});
         }
       })
-      .catch(() => {
-        dispatch({ type: MAKE_ORDER_FAILURE });
+      .catch((err) => {
+        console.log(err)
+        dispatch({type: MAKE_ORDER_FAILURE});
       });
   };
 }

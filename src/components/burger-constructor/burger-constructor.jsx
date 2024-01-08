@@ -9,16 +9,16 @@ import DoneButton from "./done-button/done-button";
 import OrderDetails from "../order-details/order-details";
 
 
-import { useDispatch, useSelector } from "react-redux";
-import { useDrop } from "react-dnd";
-import { AddIngredient, DeleteIngredient } from "../../services/actions/constructor-controls";
-import { openOrderModal, closeOrderModal, makeOrder } from "../../services/actions/order";
+import {useDispatch, useSelector} from "react-redux";
+import {useDrop} from "react-dnd";
+import {AddIngredient, DeleteIngredient} from "../../services/actions/constructor-controls";
+import {openOrderModal, closeOrderModal, makeOrder} from "../../services/actions/order";
 import Modal from "../modal/modal";
 
 const BurgerConstructor = () => {
 
   const dispatch = useDispatch()
-  const ingredientsConstructor = useSelector( (store) => store.ingredientsConstructor )
+  const ingredientsConstructor = useSelector((store) => store.ingredientsConstructor)
   const order = useSelector((store) => store.order)
 
   const ref = useRef(null)
@@ -29,7 +29,7 @@ const BurgerConstructor = () => {
   const [, dropRef] = useDrop({
     accept: "constructor",
     collect: (monitor) => ({
-      isHoverSecond : monitor.isOver()
+      isHoverSecond: monitor.isOver()
     })
   })
 
@@ -38,8 +38,8 @@ const BurgerConstructor = () => {
     collect: (monitor) => ({
       isHoverFirst: monitor.isOver(),
     }),
-    drop({ ingredient }) {
-      if ( ingredient.type === "bun" ) {
+    drop({ingredient}) {
+      if (ingredient.type === "bun") {
         if (ingredientsConstructor.bun != null) {
           dispatch(
             DeleteIngredient(

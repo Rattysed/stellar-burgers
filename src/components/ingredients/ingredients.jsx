@@ -47,7 +47,7 @@ const Ingredients = () => {
   React.useEffect(() => {
     scrollRef.current.addEventListener("scroll", onScroll);
     return () => scrollRef.current.removeEventListener("scroll", onScroll);
-  }, []);
+  });
 
   function onModalClose() {
     dispatch(closeIngredientDetails());

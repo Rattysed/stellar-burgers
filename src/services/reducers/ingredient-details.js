@@ -1,4 +1,4 @@
-import { INGREDIENT_DETAILS_OPEN, INGREDIENT_DETAILS_CLOSE } from "../actions/actions"
+import {INGREDIENT_DETAILS_OPEN, INGREDIENT_DETAILS_CLOSE} from "../actions/actions"
 
 const initialState = [
   {

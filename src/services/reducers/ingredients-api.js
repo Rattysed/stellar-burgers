@@ -1,4 +1,4 @@
-import { GET_INGREDIENTS_FAILURE, GET_INGREDIENTS_OK } from "../actions/actions"
+import {GET_INGREDIENTS_FAILURE, GET_INGREDIENTS_OK} from "../actions/actions"
 
 const initialState = [
   {

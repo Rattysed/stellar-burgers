@@ -1,11 +1,11 @@
 import styles from "./inside-ingredients.module.css"
 import {pieceProps} from "../../../utils/constants";
 import {DragIcon, ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
-import { DeleteIngredient, MoveIngredient } from '../../../services/actions/constructor-controls';
+import {DeleteIngredient, MoveIngredient} from '../../../services/actions/constructor-controls';
 
-import { useDrag, useDrop } from 'react-dnd';
-import { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import {useDrag, useDrop} from 'react-dnd';
+import {useRef} from 'react';
+import {useDispatch} from 'react-redux';
 import PropTypes from "prop-types";
 
 
@@ -16,16 +16,16 @@ function InsideIngredient({piece, id}) {
 
   const [, dragRef] = useDrag({
     type: "constructor",
-    item: { id },
+    item: {id},
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });
 
-  const [{ isHover }, dropRef] = useDrop({
+  const [{isHover}, dropRef] = useDrop({
     accept: "constructor",
     collect: (monitor) => ({
-      isHover : monitor.isOver()
+      isHover: monitor.isOver()
     }),
 
     drop: (item) => {

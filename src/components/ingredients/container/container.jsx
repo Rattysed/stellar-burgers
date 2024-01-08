@@ -25,8 +25,7 @@ const Container = ({ingredients, title, type}) => {
               }
             />
           )
-        })
-        }
+        })}
       </ul>
     </section>
   );
