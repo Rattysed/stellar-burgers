@@ -3,7 +3,6 @@ import {ADD_INGREDIENT, DELETE_INGREDIENT, MOVE_INGREDIENT} from "../actions/act
 const initialState = {
   ingredients: [],
   amounts: new Map(),
-  price: 0,
   lastId: 0,
   bun: null
 }
@@ -17,8 +16,7 @@ const ingredientsConstructor = (state = initialState, action) => {
       if (action.ingredient.type === "bun") {
         return {
           ...state,
-          bun: action.ingredient,
-          price: state.price + action.ingredient.price * 2
+          bun: action.ingredient
         };
       }
       state.amounts.set(
@@ -59,7 +57,6 @@ const ingredientsConstructor = (state = initialState, action) => {
       if (action.ingredient.type === "bun") {
         return {
           ...state,
-          price: state.price - action.ingredient.price * 2,
           bun: null
         };
       }

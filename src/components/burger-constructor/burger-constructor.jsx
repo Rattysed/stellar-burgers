@@ -1,4 +1,4 @@
-import {useRef} from "react";
+import {useRef, useMemo} from "react";
 
 import {ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -57,12 +57,20 @@ const BurgerConstructor = () => {
     },
   });
   const bun = ingredientsConstructor.bun;
-  console.log(ingredientsConstructor)
 
   function onDoneClick() {
     dispatch(makeOrder(data))
     dispatch(openOrderModal())
   }
+
+  const price = useMemo(() => {
+    let suma = bun ? bun.price * 2 : 0;
+    ingredientsConstructor.ingredients.forEach(({ingredient}) => {
+      suma += ingredient.price;
+    })
+    return suma;
+  }, [ingredientsConstructor.ingredients, bun])
+
 
   return (
     <section className={"mt-25 ml-4 mr-4 " + styles.burger_constructor} ref={drop(dropRef(ref))}>
@@ -94,7 +102,7 @@ const BurgerConstructor = () => {
       )}
       <section className={"mt-10 pr-4 " + styles.done}>
         <p className="text text_type_digits-medium mr-10">
-          {ingredientsConstructor.price}
+          {price}
           <CurrencyIcon type={"primary"}/>
         </p>
         <DoneButton onClick={onDoneClick}/>
