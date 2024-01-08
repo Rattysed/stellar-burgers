@@ -14,7 +14,7 @@ function InsideIngredient({piece, id}) {
   const ref = useRef(null)
   const dispatch = useDispatch()
 
-  const [{ isDragging }, dragRef] = useDrag({
+  const [, dragRef] = useDrag({
     type: "constructor",
     item: { id },
     collect: (monitor) => ({
@@ -51,7 +51,7 @@ function InsideIngredient({piece, id}) {
 
 InsideIngredient.propTypes = {
   piece: pieceProps.isRequired,
-  id: PropTypes.string
+  id: PropTypes.number.isRequired
 }
 
 export default InsideIngredient;

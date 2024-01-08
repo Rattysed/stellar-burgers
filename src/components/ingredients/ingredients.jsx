@@ -1,10 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from "./ingredients.module.css";
 
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import Container from "./container/container";
-import {pieceProps} from "../../utils/constants";
 
 import {useDispatch, useSelector} from 'react-redux';
 import {closeIngredientDetails} from '../../services/actions/ingredient-details';

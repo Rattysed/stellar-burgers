@@ -23,12 +23,12 @@ function getIngredients() {
           })
         }
       })
-      .catch(function(error) {
+      .catch(function() {
         dispatch({
           type: GET_INGREDIENTS_FAILURE
         })
       })
   }
-};
+}
 
 export default getIngredients

@@ -10,7 +10,7 @@ export function Card({ ingredient, amount }) {
 
   const dispatch = useDispatch();
 
-  const [{ isDrag }, drag] = useDrag({
+  const [drag] = useDrag({
     type: "ingredient",
     item: { ingredient },
     collect: (monitor) => ({
