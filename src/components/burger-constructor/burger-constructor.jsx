@@ -1,5 +1,4 @@
-import PropTypes from "prop-types";
-import {useMemo} from "react";
+import {useMemo, useRef} from "react";
 
 import {ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -7,63 +6,101 @@ import styles from "./burger-constructor.module.css"
 
 import InsideIngredient from "./inside-ingridient/inside-ingredient";
 import DoneButton from "./done-button/done-button";
-import {pieceProps} from "../../utils/constants";
 import OrderDetails from "../order-details/order-details";
 
-const BurgerConstructor = ({bottom, top, main, onModalOpen}) => {
-  function onDoneClick(event) {
-    event.preventDefault();
-    const node = (<OrderDetails/>);
-    onModalOpen(node);
+
+import { useDispatch, useSelector } from "react-redux";
+import { useDrop } from "react-dnd";
+import { AddIngredient, DeleteIngredient } from "../../services/actions/constructor-controls";
+import { openOrderModal, closeOrderModal, makeOrder } from "../../services/actions/order";
+import Modal from "../modal/modal";
+
+const BurgerConstructor = () => {
+
+  const dispatch = useDispatch()
+  const ingredientsConstructor = useSelector( (store) => store.ingredientsConstructor )
+  const order = useSelector((store) => store.order)
+
+  const ref = useRef(null)
+  const data = ingredientsConstructor.bun != null ? {
+    ingredients: [...ingredientsConstructor.ingredients.map((item) => item.ingredient._id), ingredientsConstructor.bun._id, ingredientsConstructor.bun._id]
+  } : null
+
+  const [{ isHoverr }, dropRef] = useDrop({
+    accept: "constructor",
+    collect: (monitor) => ({
+      isHoverr : monitor.isOver()
+    })
+  })
+
+  const [{ isHover }, drop] = useDrop({
+    accept: "ingredient",
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+    drop({ ingredient }) {
+      if ( ingredient.type === "bun" ) {
+        if (ingredientsConstructor.bun != null) {
+          dispatch(
+            DeleteIngredient(
+              ingredientsConstructor.bun,
+              ingredientsConstructor.bun._id
+            )
+          );
+        }
+        dispatch(AddIngredient(ingredient));
+      } else {
+        if (ingredientsConstructor.bun != null) {
+          dispatch(AddIngredient(ingredient));
+        }
+      }
+    },
+  });
+
+  const bun = ingredientsConstructor.ingredients.filter((it) => it.ingredient.type === "bun");
+
+  function onDoneClick() {
+    dispatch(makeOrder(data))
+    dispatch(openOrderModal())
   }
 
-  const price = useMemo(() => {
-    let suma = top.price + bottom.price;
-    main.forEach((piece) => {
-      suma += piece.price;
-    })
-    return suma;
-  }, [bottom, top, main])
-
   return (
-    <section className={"mt-25 ml-4 mr-4 " + styles.burger_constructor}>
+    <section className={"mt-25 ml-4 mr-4 " + styles.burger_constructor} ref={drop(dropRef(ref))}>
       <ConstructorElement
         extraClass={styles.piece + " ml-8"}
         type={"top"}
-        text={top.name + " (верх)"}
-        thumbnail={top.image}
-        price={top.price}
+        text={bun.name + " (верх)"}
+        thumbnail={bun.image}
+        price={bun.price}
         isLocked={true}
       />
       <ul className={styles.main}>
-        {main.map((piece, index) =>
+        {ingredientsConstructor.ingredients.map((piece, index) =>
           (<InsideIngredient piece={piece} key={piece._id + index}/>)
         )}
       </ul>
       <ConstructorElement
         extraClass={styles.piece + " ml-8"}
         type={"bottom"}
-        text={bottom.name + " (низ)"}
-        thumbnail={bottom.image}
-        price={bottom.price}
+        text={bun.name + " (низ)"}
+        thumbnail={bun.image}
+        price={bun.price}
         isLocked={true}
       />
       <section className={"mt-10 pr-4 " + styles.done}>
         <p className="text text_type_digits-medium mr-10">
-          {price}
+          {ingredientsConstructor.price}
           <CurrencyIcon type={"primary"}/>
         </p>
         <DoneButton onClick={onDoneClick}/>
       </section>
+      {order.open_modal && order.success &&
+        <Modal onClose={() => dispatch(closeOrderModal())}>
+          <OrderDetails id={order.id} status={order.status} name={order.name}/>
+        </Modal>
+      }
     </section>
   );
-}
-
-BurgerConstructor.propTypes = {
-  bottom: pieceProps.isRequired,
-  top: pieceProps.isRequired,
-  main: PropTypes.arrayOf(pieceProps).isRequired,
-  onModalOpen: PropTypes.func.isRequired,
 }
 
 export default BurgerConstructor;

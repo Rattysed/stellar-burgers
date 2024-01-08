@@ -21,3 +21,7 @@
     max-height: 870px;
   }
 }
+
+.tabs_container {
+  display: flex;
+}

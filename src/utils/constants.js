@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 
 export const ingredientsPath = "https://norma.nomoreparties.space/api/ingredients";
+export const orderPath = "https://norma.nomoreparties.space/api/orders";
 
 export const pieceProps = PropTypes.shape({
   name: PropTypes.string,
