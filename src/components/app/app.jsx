@@ -2,7 +2,7 @@ import {useEffect} from "react";
 
 import styles from './app.module.css';
 import AppHeader from "../app-header/app-header";
-import Ingredients from "../ingredients/ingredients";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 import {DndProvider} from 'react-dnd';
@@ -17,7 +17,7 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getIngredients());
-  }, [])
+  })
 
 
   return (
@@ -28,7 +28,7 @@ const App = () => {
               <main className={styles.app__main}>
                 <DndProvider backend={HTML5Backend}>
                   <>
-                    <Ingredients/>
+                    <BurgerIngredients/>
                     <BurgerConstructor/>
                   </>
                 </DndProvider>

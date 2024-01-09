@@ -10,7 +10,7 @@ import {closeIngredientDetails} from '../../services/actions/ingredient-details'
 import IngredientDetails from "../igredient-details/ingredient-details";
 import Modal from '../modal/modal';
 
-const Ingredients = () => {
+const BurgerIngredients = () => {
   const scrollRef = React.useRef(window);
   const [current, setCurrent] = React.useState('bun')
 
@@ -86,4 +86,4 @@ const Ingredients = () => {
 }
 
 
-export default Ingredients;
+export default BurgerIngredients;

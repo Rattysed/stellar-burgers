@@ -16,13 +16,14 @@ const Container = ({ingredients, title, type}) => {
       </p>
       <ul className={styles.cardContainer}>
         {ingredients.map((ingredient) => {
+          const amount = ingredientsConstructor.amounts.has(ingredient._id)
+            ? ingredientsConstructor.amounts.get(ingredient._id)
+            : ingredientsConstructor.bun && ingredientsConstructor.bun._id === ingredient._id ? 1 : 0;
           return ingredient.type === type && (
             <Card
               key={ingredient._id}
               ingredient={ingredient}
-              amount={
-                ingredientsConstructor.amounts.has(ingredient._id) ? ingredientsConstructor.amounts.get(ingredient._id) : 0
-              }
+              amount={amount}
             />
           )
         })}

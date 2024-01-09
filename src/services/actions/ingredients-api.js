@@ -1,29 +1,17 @@
-import {ingredientsPath} from "../../utils/constants";
-import { GET_INGREDIENTS_FAILURE, GET_INGREDIENTS_OK } from "./actions";
-
+import {ingredientsEndpoint} from "../../utils/constants";
+import {GET_INGREDIENTS_FAILURE, GET_INGREDIENTS_OK} from "./actions";
+import {request} from "../../utils/api";
 
 function getIngredients() {
   return function (dispatch) {
-    fetch(ingredientsPath)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
+    request(ingredientsEndpoint)
       .then((data) => {
-        if (data.success) {
-          dispatch({
-            type: GET_INGREDIENTS_OK,
-            ingredients: data.data
-          })
-        } else {
-          dispatch({
-            type: GET_INGREDIENTS_FAILURE
-          })
-        }
+        dispatch({
+          type: GET_INGREDIENTS_OK,
+          ingredients: data.data
+        })
       })
-      .catch(function(err) {
+      .catch((err) => {
         console.log(err)
         dispatch({
           type: GET_INGREDIENTS_FAILURE

@@ -59,8 +59,10 @@ const BurgerConstructor = () => {
   const bun = ingredientsConstructor.bun;
 
   function onDoneClick() {
-    dispatch(makeOrder(data))
-    dispatch(openOrderModal())
+    if (bun) {
+      dispatch(makeOrder(data))
+      dispatch(openOrderModal())
+    }
   }
 
   const price = useMemo(() => {
