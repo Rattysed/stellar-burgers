@@ -1,85 +1,46 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect} from "react";
+
 import styles from './app.module.css';
 import AppHeader from "../app-header/app-header";
-import Ingredients from "../ingredients/ingredients";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import {ingredientsPath} from "../../utils/constants";
-import Modal from "../modal/modal";
+
+import {DndProvider} from 'react-dnd';
+import {HTML5Backend} from 'react-dnd-html5-backend';
+
+import {useDispatch, useSelector} from 'react-redux';
+import getIngredients from '../../services/actions/ingredients-api';
+
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("err");
-
-  const [ingredients, setIngredients] = useState([]);
-  const [modalState, setModalState] = useState({open: false, node: (<></>)})
-
-  const onModalOpen = (node) => {
-    setModalState({
-      open: true,
-      node: node,
-    })
-  }
-
-  const onModalClose = () => {
-    setModalState({
-      open: false,
-      node: (<></>)
-    })
-  }
-
+  const ingredientsList = useSelector((store) => store.ingredientsList)
+  const dispatch = useDispatch();
   useEffect(() => {
-    setIsLoading(true)
-    fetch(ingredientsPath)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status)
-      })
-      .then((res) => {
-        if (!res.success) {
-          return Promise.reject(res);
-        }
-        setIngredients(res["data"])
-        setIsLoading(false)
-        setError("")
-      })
-      .catch((err) => {
-        console.log(err)
-        setIsLoading(false)
-        setError(err)
-      })
-  }, []);
+    dispatch(getIngredients());
+  })
 
-  const defaultData = isLoading || error ? [] : [
-    ingredients[2],
-    ingredients[2],
-    ingredients[3],
-    ingredients[3],
-    ingredients[3],
-    ingredients[3],
-    ingredients[4],
-  ];
 
   return (
     <div className={styles.app}>
       <AppHeader/>
-      {modalState.open && !isLoading &&
-        <Modal onClose={onModalClose}>
-          {modalState.node}
-        </Modal>
-      }
-      {isLoading && "Загрузка"}
-      {error && "Ошибка: " + error}
-      {!isLoading && !error && (
-        <>
-          <main className={styles.app__main}>
-            <Ingredients data={ingredients} onModalOpen={onModalOpen}/>
-            <BurgerConstructor bottom={ingredients[0]} top={ingredients[0]} main={defaultData}
-                               onModalOpen={onModalOpen}/>
-          </main>
-        </>
-      )}
+      {!ingredientsList.loading ? (ingredientsList.success ?
+            <>
+              <main className={styles.app__main}>
+                <DndProvider backend={HTML5Backend}>
+                  <>
+                    <BurgerIngredients/>
+                    <BurgerConstructor/>
+                  </>
+                </DndProvider>
+              </main>
+            </> :
+            <p className="text text_type_main-large">
+              Произошла непредвиденная ошибка
+            </p>
+        ) :
+        <p className="text text_type_main-large">
+          Идёт загрузка
+        </p>}
     </div>
   );
 }
